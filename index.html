@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ImageForge — Image Converter</title>
+<link rel="stylesheet" href="index.css">
+
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/utif@3.1.0/UTIF.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tga-js@1.0.1/dist/tga.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/utif@3.1.0/UTIF.js"></script>
+
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="brand-mark">IF</span>
+    <div>
+      <div>ImageForge</div>
+      <small data-i18n="brandSub">IMAGE CONVERTER</small>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">
+      <span id="themeIcon">☾</span>
+      <span id="themeText" data-i18n="darkMode">Dark</span>
+    </button>
+    <select id="languageSelect" class="lang-select" aria-label="Language">
+      <option value="vi">Tiếng Việt</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+</header>
+
+<main class="layout">
+<section class="main">
+  <div class="toolbar">
+    <div class="title" data-i18n="files">Files</div>
+    <button class="primary" id="convert" data-i18n="convertAll">Convert all</button>
+    <button id="downloadAll" disabled data-i18n="downloadAll">Download all</button>
+    <button class="danger" id="clear" data-i18n="clear">Clear</button>
+  </div>
+
+  <label class="drop" id="drop">
+    <div>
+      <strong data-i18n="addFiles">+ Add files</strong>
+      <span data-i18n="dropHint">Kéo thả file vào đây hoặc bấm để chọn</span>
+      <input id="files" type="file" multiple>
+    </div>
+  </label>
+
+  <div id="filesList" class="file-list">
+    <div class="empty">Chưa có file nào.</div>
+  </div>
+</section>
+
+<aside class="sidebar">
+  <h2 data-i18n="settings">Conversion settings</h2>
+
+  <div class="field">
+    <label data-i18n="outputFormat">Output format</label>
+    <select id="format">
+      <option value="image/png">PNG</option>
+      <option value="image/jpeg">JPEG / JPG</option>
+      <option value="image/webp">WebP</option>
+      <option value="image/avif">AVIF</option>
+      <option value="image/bmp">BMP</option>
+      <option value="image/gif">GIF</option>
+      <option value="image/tiff">TIFF</option>
+      <option value="image/apng">APNG</option>
+      <option value="image/x-icon">ICO</option>
+      <option value="image/svg+xml">SVG</option>
+      <option value="image/x-tga">TGA</option>
+      <option value="image/x-portable-pixmap">PPM</option>
+      <option value="image/x-portable-graymap">PGM</option>
+      <option value="image/x-portable-bitmap">PBM</option>
+      <option value="image/x-portable-anymap">PAM</option>
+      <option value="image/qoi">QOI</option>
+      <option value="image/vnd.zbrush.pcx">PCX</option>
+      <option value="image/vnd-ms.dds">DDS</option>
+      <option value="image/vnd.radiance">HDR</option>
+      <option value="image/x-sgi">SGI</option>
+      <option value="application/fits">FITS</option>
+      <option value="image/x-miff">MIFF</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <div class="quality-line">
+      <label data-i18n="qualityMode">Quality mode</label>
+      <span id="qualityValue">%</span>
+    </div>
+    <input id="quality" type="range" min="1" max="100" value="92">
+    <select id="qualityPreset" style="margin-top:9px">
+      <option value="custom" data-i18n="custom">Thanh kéo — Custom</option>
+      <option value="144">144p</option>
+      <option value="240">240p</option>
+      <option value="360">360p</option>
+      <option value="480">480p</option>
+      <option value="720">720p HD</option>
+      <option value="1080">1080p Full HD</option>
+      <option value="1440">1440p QHD</option>
+      <option value="2160">2160p 4K</option>
+      <option value="original">Original — Bản gốc</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label data-i18n="width">Width (px)</label>
+    <input id="width" type="number" min="0" placeholder="Tự động theo preset">
+  </div>
+
+  <div class="field">
+    <label data-i18n="height">Height (px)</label>
+    <input id="height" type="number" min="0" placeholder="Tự động theo preset">
+  </div>
+
+  <div class="side-actions">
+    <button class="primary" id="convertSide" data-i18n="convertAllFiles">Convert all files</button>
+  </div>
+
+  <div class="info">
+    <span data-i18n="localInfo">Files are processed locally with JavaScript. Nothing is uploaded to a server.</span>
+  </div>
+</aside>
+</main>
+
+<div class="footer"><div><strong>👨‍💻 Người thực hiện: ATCX</strong><br><span>© 2026 | © Copyright ATCX. All rights reserved.</span></div></div>
+
+
+
+
+
+
+<div id="cookieBanner" class="cookie-banner" hidden>
+  <div class="cookie-content">
+    <div class="cookie-text">
+      <strong>🍪 Cookie</strong>
+      <span>Website sử dụng Cookie để lưu lựa chọn và trạng thái của bạn.</span>
+    </div>
+    <div class="cookie-actions">
+      <a class="cookie-more" href="cookie.html">Xem thêm</a>
+      <button id="cookieAccept" class="cookie-accept" type="button">Chấp nhận</button>
+      <button id="cookieDecline" class="cookie-decline" type="button">Từ chối</button>
+    </div>
+  </div>
+</div>
+<script src="index.js"></script>
+</body>
+</html>
