@@ -337,9 +337,4 @@ License của dự án hiện chưa được khai báo rõ ràng trong repositor
 
 ---
 
-<p align="center">
-
-© 2026 ATCX. All rights reserved.
-
-</p>
-
+<p align="center">© 2026 ATCX. All rights reserved.</p>
